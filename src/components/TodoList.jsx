@@ -18,7 +18,7 @@ export default function TodoList() {
 
   const fetchTodos = () => {
     axios
-      .get("http://localhost:5000/todos")
+      .get("https://summary-todo.onrender.com/todos")
       .then((res) => setTodos(res.data))
       .catch((err) => console.error(err));
   };
@@ -27,7 +27,7 @@ export default function TodoList() {
     if (!newTodo.trim()) return;
 
     axios
-      .post("http://localhost:5000/todos", { text: newTodo })
+      .post("https://summary-todo.onrender.com/todos", { text: newTodo })
       .then((res) => {
         setTodos([...todos, res.data]);
         setNewTodo("");
@@ -37,7 +37,7 @@ export default function TodoList() {
 
   const deleteTodo = (id) => {
     axios
-      .delete(`http://localhost:5000/todos/${id}`)
+      .delete(`https://summary-todo.onrender.com/todos/${id}`)
       .then(() => {
         setTodos(todos.filter((todo) => todo.id !== id));
       })
@@ -58,7 +58,7 @@ export default function TodoList() {
     if (!editingText.trim()) return;
 
     axios
-      .put(`http://localhost:5000/todos/${id}`, { text: editingText })
+      .put(`https://summary-todo.onrender.com/todos/${id}`, { text: editingText })
       .then((res) => {
         setTodos(todos.map((todo) => (todo.id === id ? res.data : todo)));
         setEditingId(null);
@@ -69,7 +69,7 @@ export default function TodoList() {
 
   const summarizeTodos = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/summarize", {
+      const response = await axios.post("https://summary-todo.onrender.com/summarize", {
         todos: todos,
       });
       alert("Summary sent to Slack:\n\n" + response.data.summary);
